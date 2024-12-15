@@ -8,16 +8,18 @@ class Channel:
         self.videos = videos
 
 class Channels:
-    def __init__(self, num) -> None:
+    def __init__(self, num, output: list) -> None:
         self.channel_list = []
+        self.output = output
 
         self.num = num
         self.console = Console()
 
     def add_channel(self, channel: Channel) -> None:
         self.channel_list.append(channel)
+        self.output.append(channel)
 
-    def return_channel_list(self) -> list:
+    def return_channel_list(self) -> None:
         string = []
 
         [(lambda channel: string.append(f"{channel.name} | {channel.subs} | {channel.videos}"))(channel) for channel in self.channel_list]

@@ -25,7 +25,7 @@ class Webdriver:
             WebDriverWait(self.driver, 10).until(expected_conditions.element_to_be_clickable((By.TAG_NAME, "body")))
 
             ParseWebdriver(driver=self.driver, console=self.console, num=self.num).launch_webdriver_process()
-            self.console.input("[bold white on red]Press enter to exit...[/bold white on red]")
+            self.console.input("[bold white on red]Press enter to create logs in /output...[/bold white on red]")
         except Exception:
             self.console.print_exception()
         finally:

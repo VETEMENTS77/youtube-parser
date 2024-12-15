@@ -7,6 +7,7 @@ from rich.console import Console
 from src.hoc.window import Window
 from src.hoc.channels import Channel, Channels
 from rich.progress import track
+from datetime import datetime
 
 class ParseWebdriver:
     def __init__(self, driver, console, num) -> None:
@@ -17,6 +18,7 @@ class ParseWebdriver:
         self.num = num
         self.content_section = []
         self.channel_href_list = []
+        self.output = []
 
     def launch_webdriver_parse_contents(self) -> None:
         try:
@@ -31,7 +33,7 @@ class ParseWebdriver:
 
     def launch_webdriver_parse_link(self) -> None:
         try:
-            for content in track(self.content_section, description="Processing"):
+            for content in track(self.content_section[:5], description="Processing"):
                 href = content.find_element(By.ID, "main-link").get_attribute("href")
 
                 if href not in self.channel_href_list:
@@ -53,10 +55,17 @@ class ParseWebdriver:
         except Exception:
             pass
 
+    def create_output_logs(self) -> None:
+        with open(f'output/log[{" ".join(datetime.utcnow().strftime("%Y-%m-%d %H-%M-%S").split(" "))}].txt', "w", encoding="utf-8") as file:
+            string = []
+            [(lambda channel: string.append(f"{channel.name} | {channel.subs} | {channel.videos}"))(channel) for channel in self.output]
+
+            file.write("\n".join(string))
+
     def launch_webdriver_process(self) -> None:
         i = 1
         while len(self.channel_href_list) < self.num:
-            self.channels = Channels(i)
+            self.channels = Channels(i, self.output)
 
             self.launch_webdriver_parse_contents()
             self.launch_webdriver_parse_link()
@@ -68,3 +77,5 @@ class ParseWebdriver:
             WebDriverWait(self.driver, 10).until(expected_conditions.element_to_be_clickable((By.TAG_NAME, "body")))
 
             i += 1
+
+        self.create_output_logs()
