@@ -2,7 +2,6 @@ from src.webdriver import Webdriver
 from src.hoc.welcome import Welcome
 from fake_useragent import UserAgent
 from rich.console import Console
-from colorama import Back, Style
 import os
 
 if __name__ == "__main__":
