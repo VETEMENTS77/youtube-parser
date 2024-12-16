@@ -33,7 +33,7 @@ class ParseWebdriver:
 
     def launch_webdriver_parse_link(self) -> None:
         try:
-            for content in track(self.content_section[:5], description="Processing"):
+            for content in track(self.content_section, description="Processing"):
                 href = content.find_element(By.ID, "main-link").get_attribute("href")
 
                 if href not in self.channel_href_list:
