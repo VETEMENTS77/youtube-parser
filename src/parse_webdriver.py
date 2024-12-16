@@ -56,7 +56,7 @@ class ParseWebdriver:
             pass
 
     def create_output_logs(self) -> None:
-        with open(f'log[{" ".join(datetime.utcnow().strftime("%Y-%m-%d %H-%M-%S").split(" "))}].txt', "w", encoding="utf-8") as file:
+        with open(f'output/log[{" ".join(datetime.utcnow().strftime("%Y-%m-%d %H-%M-%S").split(" "))}].txt', "w", encoding="utf-8") as file:
             string = []
             [(lambda channel: string.append(f"{channel.name} | {channel.subs} | {channel.videos}"))(channel) for channel in self.output]
 
