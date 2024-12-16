@@ -10,7 +10,7 @@ class Welcome:
         self.console = Console()
 
     def send_welcome(self) -> None:
-        figlet_text = pyfiglet.figlet_format("YOUTUBE-PARSER", font="bloody")
+        figlet_text = pyfiglet.figlet_format("YOUTUBE", font="bloody")
         panel = Panel(figlet_text, style="red")
 
         vertical_padding = (self.console.size.height - figlet_text.count("\n")) // 2
